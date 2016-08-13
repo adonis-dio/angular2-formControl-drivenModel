@@ -1,0 +1,29 @@
+<form [ngFormModel]="form" (ngSubmit)="signup()" >
+    <div class="form-group">
+
+        <label for="current">Current password</label>
+        <input id="current" type="text" class="form-control" ngControl="current" #current="ngForm">
+        <div *ngIf="current.touched && current.errors">
+            <div *ngIf="current.errors.invalidLogin" class="alert alert-danger">Old password is incorrect.</div>
+            <div *ngIf="current.errors.required" class="alert alert-danger">Current password is required.</div>
+        </div>
+
+        <label for="new">New password</label>
+        <input id="new" type="text" class="form-control" ngControl="new" #new="ngForm">
+        <div *ngIf="new.touched && new.errors">
+            <div *ngIf="new.errors.required" class="alert alert-danger">New password is required.</div>
+            <div *ngIf="new.errors.minlength" class="alert alert-danger">New password should have at least {{ new.errors.minlength.requiredLength }} characters.</div>
+        </div>
+
+        <label for="confirm">Confirm password</label>
+        <input id="confirm" type="text" class="form-control" ngControl="confirm" #confirm="ngForm">
+        <div *ngIf="confirm.touched && confirm.errors">
+            <div *ngIf="confirm.errors.required" class="alert alert-danger">Confirm the new password is required.</div>
+            <div *ngIf="confirm.errors.invalidLogin" class="alert alert-danger">Confirmation doesn't match!</div>
+        </div>
+
+    </div>
+
+    <button class="btn btn-primary" type="submit" [disabled]="!form.valid">Sign Up</button>
+
+</form>
